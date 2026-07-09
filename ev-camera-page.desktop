@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=EV Camera Web Page
+Exec=/usr/local/bin/open-ev-camera-page.sh
+Terminal=false
+X-GNOME-Autostart-enabled=true

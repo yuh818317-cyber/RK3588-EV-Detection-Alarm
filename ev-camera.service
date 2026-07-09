@@ -1,0 +1,19 @@
+[Unit]
+Description=RK3588 Electric Vehicle Detection System
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/root/ev_camera_project
+Environment=PYTHONUNBUFFERED=1
+ExecStartPre=/bin/sleep 8
+ExecStart=/usr/bin/python3 /root/ev_camera_project/main.py --config /root/ev_camera_project/configs/dorm_gate_camera.yaml
+Restart=always
+RestartSec=5
+KillSignal=SIGINT
+TimeoutStopSec=15
+
+[Install]
+WantedBy=multi-user.target

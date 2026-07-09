@@ -1,0 +1,61 @@
+project:
+  root: /root/ev_camera_project
+input:
+  mode: video
+  camera_device: /dev/video21
+  camera_width: 1280
+  camera_height: 720
+  camera_fps: 30
+  video_path: roi_test.mp4
+  loop_video: true
+model:
+  path: models/yolov8n_rk3588.rknn
+  input_size: 640
+  conf_threshold: 0.12
+  nms_threshold: 0.45
+  target_classes:
+  - bicycle
+  - motorcycle
+roi:
+  path: config/roi_config.json
+  default_points:
+  - - 0.2
+    - 0.45
+  - - 0.8
+    - 0.45
+  - - 0.95
+    - 0.95
+  - - 0.05
+    - 0.95
+entry_line:
+  points:
+  - - 0.47
+    - 0.29
+  - - 0.82
+    - 0.382
+detection:
+  period_seconds: 0.12
+  confirm_hit_frames: 3
+  event_cooldown_seconds: 10.0
+  event_type: electric_vehicle_enter
+tracking:
+  max_distance: 140
+  max_missed: 4
+  history_length: 12
+alarm:
+  mode: led
+  gpio_chip: gpiochip3
+  gpio_line: 13
+  duration_seconds: 5
+storage:
+  manual_snapshot_dir: snapshots
+  log_dir: logs
+  csv_log_path: logs/event_log.csv
+  database_path: data/events.db
+  evidence_dir: evidence/screenshots
+  scene_name: building_entrance
+  risk_level: high
+web:
+  host: 0.0.0.0
+  port: 5000
+  threaded: true
